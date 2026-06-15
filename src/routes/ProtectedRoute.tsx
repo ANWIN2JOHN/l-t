@@ -47,7 +47,9 @@ export default function ProtectedRoute({ requiredRole }: ProtectedRouteProps) {
   // Role check — redirect to correct dashboard if wrong role
   if (requiredRole && role !== requiredRole) {
     const redirect =
-      role === "admin" ? ROUTES.ADMIN_DASHBOARD : ROUTES.STUDENT_DASHBOARD;
+  role === "admin"
+    ? ROUTES.ADMIN_DASHBOARD
+    : ROUTES.STUDENT_DASHBOARD;
     return <Navigate to={redirect} replace />;
   }
 

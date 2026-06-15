@@ -32,7 +32,9 @@ export default function RoleGuard({ allowedRoles }: RoleGuardProps) {
   if (!role || !allowedRoles.includes(role as Role)) {
     // Redirect to the user's own dashboard
     const redirect =
-      role === "admin" ? ROUTES.ADMIN_DASHBOARD : ROUTES.STUDENT_DASHBOARD;
+  role === "admin"
+    ? ROUTES.ADMIN_DASHBOARD
+    : ROUTES.STUDENT_DASHBOARD;
     return <Navigate to={redirect} replace />;
   }
 

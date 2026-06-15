@@ -78,28 +78,39 @@ export default function AuthListener({ children }: { children: React.ReactNode }
           setProfile(profile);
           setLoading(false);
 
-          const dashboard =
-            profile.role === "admin" ? ROUTES.ADMIN_DASHBOARD : ROUTES.STUDENT_DASHBOARD;
+          // Multi-role support using existing role text column
+// Supported values:
+// admin
+// student
+// admin,student
+const roleValue = profile.role ?? "";
 
-          console.log("Profile role:", profile.role);
-          console.log("Current pathname:", location.pathname);
-          console.log("Target dashboard:", dashboard);
+const isAdmin = roleValue.includes("admin");
+const isStudent = roleValue.includes("student");
 
-          // Navigate to dashboard unless the user is already on a protected route.
-          // This covers all cases:
-          //   - Post-OAuth redirect lands on "/" (landing page)
-          //   - Login page (/login, /student-login)
-          //   - Any other public page
-          const alreadyOnDashboard =
-            location.pathname.startsWith(ROUTES.ADMIN_DASHBOARD) ||
-            location.pathname.startsWith(ROUTES.STUDENT_DASHBOARD);
+console.log("Profile role:", roleValue);
+console.log("isAdmin:", isAdmin);
+console.log("isStudent:", isStudent);
 
-          if (!alreadyOnDashboard) {
-            console.log("Navigating to:", dashboard);
-            navigate(dashboard, { replace: true });
-          } else {
-            console.log("Already on dashboard, no navigation needed.");
-          }
+const dashboard: string =
+  isAdmin
+    ? ROUTES.ADMIN_DASHBOARD
+    : ROUTES.STUDENT_DASHBOARD;
+
+console.log("Current pathname:", location.pathname);
+console.log("Target dashboard:", dashboard);
+
+const alreadyOnDashboard =
+  location.pathname.startsWith(ROUTES.ADMIN_DASHBOARD) ||
+  location.pathname.startsWith(ROUTES.STUDENT_DASHBOARD);
+
+if (!alreadyOnDashboard) {
+  console.log("Navigating to:", dashboard);
+  navigate(dashboard, { replace: true });
+} else {
+  console.log("Already on dashboard, no navigation needed.");
+}
+
         }
       } catch (err: any) {
         console.error("Error loading profile:", err);

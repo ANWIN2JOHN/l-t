@@ -1466,10 +1466,13 @@ function AppRoutes() {
   const handleBrowseFound = () => navigate(ROUTES.BROWSE_FOUND);
   const handleAdminLogin = () => navigate(ROUTES.LOGIN);
   
-  const handleRoleSelect = (role: "student" | "admin") => {
-    if (role === "student") navigate(ROUTES.STUDENT_LOGIN);
-    else navigate(ROUTES.LOGIN);
-  };
+const handleRoleSelect = (role: "student" | "admin") => {
+  if (role === "student") {
+    navigate(ROUTES.STUDENT_LOGIN);
+  } else {
+    navigate(ROUTES.LOGIN);
+  }
+};
 
   const handleBackToLanding = () => navigate(ROUTES.HOME);
   const handleNavigateToStudentLogin = () => navigate(ROUTES.STUDENT_LOGIN);
